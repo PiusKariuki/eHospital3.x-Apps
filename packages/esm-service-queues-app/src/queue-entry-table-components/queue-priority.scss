@@ -5,31 +5,8 @@
 .tag {
   margin: 0.25rem 0;
   white-space: nowrap;
-  font-weight: 500;
-  letter-spacing: 0.05rem;
 }
 
-.priorityTag {
-  @extend .tag;
-  @include type.type-style('label-01');
-  color: #943d00;
-  background-color: #ffc9a3;
-}
-
-.emergencyTag{
-  @extend .tag;
-  background-color: #D2042D;
-  color: white;
-}
-
-.urgentTag{
-  @extend .tag;
-  background-color: #FFBF00;
-  color: black;
-}
-
-.notUrgentTag{
-  @extend .tag;
-  background-color: green;
-  color: white;
+.bold {
+  font-weight: bold;
 }
