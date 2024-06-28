@@ -1671,7 +1671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.33.1":
+"@carbon/react@npm:^1.12.0, @carbon/react@npm:^1.33.1":
   version: 1.60.3
   resolution: "@carbon/react@npm:1.60.3"
   dependencies:
@@ -4066,6 +4066,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openmrs/esm-patient-common-lib@npm:*":
+  version: 8.0.0
+  resolution: "@openmrs/esm-patient-common-lib@npm:8.0.0"
+  dependencies:
+    "@carbon/react": ^1.12.0
+    lodash-es: ^4.17.21
+    uuid: ^8.3.2
+  peerDependencies:
+    "@openmrs/esm-framework": 5.x
+    react: 18.x
+    single-spa: 6.x
+  checksum: 53143bc1e0c0e1f51c9ef52c14de099d2ce7d494fa58d2a11beaf1a5d952d07ca6cef5282aacd623968f9620e9f7e1914a2e6dd4a3c6ad54b47d1e3d35274f44
+  languageName: node
+  linkType: hard
+
 "@openmrs/esm-react-utils@npm:5.6.1-pre.1977, @openmrs/esm-react-utils@npm:next":
   version: 5.6.1-pre.1977
   resolution: "@openmrs/esm-react-utils@npm:5.6.1-pre.1977"
@@ -5937,6 +5952,7 @@ __metadata:
     "@openmrs/esm-extensions": next
     "@openmrs/esm-framework": next
     "@openmrs/esm-navigation": next
+    "@openmrs/esm-patient-common-lib": "*"
     "@openmrs/esm-react-utils": next
     "@openmrs/esm-state": next
     "@openmrs/esm-styleguide": next
@@ -5997,6 +6013,19 @@ __metadata:
     uuid: ^8.3.2
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
+    zod: ^3.22.4
+  languageName: unknown
+  linkType: soft
+
+"@sjthc/esm-patient-list-app@workspace:packages/esm-patient-list-app":
+  version: 0.0.0-use.local
+  resolution: "@sjthc/esm-patient-list-app@workspace:packages/esm-patient-list-app"
+  peerDependencies:
+    "@carbon/react": ~1.37.0
+    "@hookform/resolvers": ^3.3.4
+    dayjs: 1.x
+    lodash-es: ^4.17.15
+    react-hook-form: ^7.49.3
     zod: ^3.22.4
   languageName: unknown
   linkType: soft

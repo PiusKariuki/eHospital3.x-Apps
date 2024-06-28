@@ -36,28 +36,12 @@
   "bugs": {
     "url": "https://github.com/IntelliSOFT-Consulting/sjhc-esm-patient-list-app/issues"
   },
-  "dependencies": {
-    "@carbon/charts-react": "^1.5.2",
-    "lodash-es": "^4.17.21",
-    "react-data-table-component": "^7.6.2",
-    "styled-components": "^5",
-    "uuid": "^8.3.2"
-  },
   "peerDependencies": {
-    "@carbon/react": "1.x",
-    "@openmrs/esm-framework": "5.x",
-    "@openmrs/esm-patient-common-lib": "*",
+    "@carbon/react": "~1.37.0",
+    "@hookform/resolvers": "^3.3.4",
     "dayjs": "1.x",
-    "lodash-es": "4.x",
-    "react": "18.x",
-    "react-i18next": "11.x",
-    "react-router-dom": "6.x",
-    "rxjs": "6.x",
-    "single-spa": "5.x",
-    "single-spa-react": "5.x"
-  },
-  "devDependencies": {
-    "@types/uuid": "^9.0.4",
-    "webpack": "^5.88.2"
+    "lodash-es": "^4.17.15",
+    "react-hook-form": "^7.49.3",
+    "zod": "^3.22.4"
   }
 }
