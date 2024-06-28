@@ -36,22 +36,12 @@
   "bugs": {
     "url": "https://github.com/openmrs/openmrs-esm-admin-tools/issues"
   },
-  "dependencies": {
-    "@carbon/react": "^1.33.1",
+  "peerDependencies": {
     "@datasert/cronjs-matcher": "^1.2.0",
     "@datasert/cronjs-parser": "^1.2.0",
     "cronstrue": "^2.41.0",
-    "dayjs": "^1.8.36",
     "lodash-es": "^4.17.21",
     "react-image-annotate": "^1.8.0"
-  },
-  "peerDependencies": {
-    "@openmrs/esm-framework": "*",
-    "dayjs": "1.x",
-    "react": "18.x",
-    "react-i18next": "11.x",
-    "react-router-dom": "6.x",
-    "rxjs": "6.x"
   },
   "packageManager": "yarn@3.6.1"
 }
