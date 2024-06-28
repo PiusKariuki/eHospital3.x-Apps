@@ -1,7 +1,44 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import useSWR from "swr";
-import { openmrsFetch } from "@openmrs/esm-framework";
-import { Patient } from "@sjthc/esm-patient-registration-app/src/patient-registration/patient-registration.types";
+import {openmrsFetch} from "@openmrs/esm-framework";
+
+interface NameValue {
+  uuid: string;
+  preferred: boolean;
+  givenName: string;
+  middleName: string;
+  familyName: string;
+}
+
+interface AttributeValue {
+  attributeType: string;
+  value: string;
+}
+
+interface PatientIdentifier {
+  uuid?: string;
+  identifier: string;
+  identifierType?: string;
+  location?: string;
+  preferred?: boolean;
+}
+
+interface Patient {
+  uuid: string;
+  identifiers: Array<PatientIdentifier>;
+  person: {
+    uuid: string;
+    names: Array<NameValue>;
+    gender: string;
+    birthdate: string;
+    birthdateEstimated: boolean;
+    attributes: Array<AttributeValue>;
+    addresses: Array<Record<string, string>>;
+    dead: boolean;
+    deathDate?: string;
+    causeOfDeath?: string;
+  };
+};
 
 export function usePatientList() {
   const [filteredData, setFilteredData] = useState<Patient[]>([]);
@@ -11,9 +48,9 @@ export function usePatientList() {
     return response.json();
   };
 
-  const { data, error } = useSWR(`/ws/fhir2/R4/Patient?_count=1000`, fetcher);
+  const {data, error} = useSWR(`/ws/fhir2/R4/Patient?_count=1000`, fetcher);
 
-  const filterData = ({ start = null, end = null }) => {
+  const filterData = ({start = null, end = null}) => {
     let filteredArray = data.entry;
 
     if (start && end) {
