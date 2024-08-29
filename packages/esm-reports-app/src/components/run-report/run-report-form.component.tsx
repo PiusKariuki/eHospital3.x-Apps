@@ -5,14 +5,11 @@ import {
   useLocations,
   useReportDefinitions,
   useReportDesigns,
-  runReportObservable,
-  RunReportRequest,
 } from '../reports.resource';
-import { ReportDesign } from '../../types/report-design';
 import { closeOverlay } from '../../hooks/useOverlay';
 import { Button, ButtonSet, DatePicker, DatePickerInput, Form, Select, SelectItem, TextInput } from '@carbon/react';
-import { showToast, useLayoutType } from '@openmrs/esm-framework';
-import { first } from 'rxjs/operators';
+import { useLayoutType } from '@openmrs/esm-framework';
+import {useNavigate} from "react-router-dom"
 
 interface RunReportForm {
   closePanel: () => void;
@@ -28,6 +25,8 @@ const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isTablet = useLayoutType() === 'tablet';
 
+  const navigate = useNavigate();
+
   const { reportDesigns, mutateReportDesigns } = useReportDesigns(reportUuid);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
       (parameter) => !!reportParameters[parameter.name] && reportParameters[parameter.name] !== 'Invalid Date',
     );
 
-    if (!isAnyNotSupportedType && allParametersNotEmpty && reportUuid !== '' && renderModeUuid !== '') {
+    if (!isAnyNotSupportedType && allParametersNotEmpty && reportUuid !== '') {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -62,7 +61,7 @@ const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
               datePickerType="single"
               name={parameter.name}
               onChange={([date]) => handleOnDateChange(parameter.name, date)}
-              dateFormat="Y-m-d"
+              // dateFormat="Y-m-d"
               className={styles.datePicker}
             >
               <DatePickerInput id={parameter.name} name={parameter.name} labelText={parameter.label} type="date" />
@@ -135,43 +134,43 @@ const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
-      setIsSubmitting(true);
-
-      const runReportRequest: RunReportRequest = {
-        reportDefinitionUuid: reportUuid,
-        renderModeUuid: renderModeUuid,
-        reportParameters: reportParameters,
-      };
-
-      const abortController = new AbortController();
-      runReportObservable(runReportRequest, abortController)
-        .pipe(first())
-        .subscribe(
-          () => {
-            // delayed handling because runReport returns before new reports is accessible via GET
-            setTimeout(() => {
-              showToast({
-                critical: true,
-                kind: 'success',
-                title: t('reportRunning', 'Report running'),
-                description: t('reportRanSuccessfullyMsg', 'Report ran successfully'),
-              });
-              closePanel();
-              setIsSubmitting(false);
-            }, 500);
-          },
-          (error) => {
-            console.error(error);
-            showToast({
-              critical: true,
-              kind: 'error',
-              title: t('reportRunningErrorMsg', 'Error while running the report'),
-              description: t('reportRunningErrorMsg', 'Error while running the report'),
-            });
-            setIsSubmitting(false);
-          },
-        );
+      navigate(`/webview/${reportUuid}`);
+      // setIsSubmitting(true);
+      //
+      // const runReportRequest: RunReportRequest = {
+      //   reportDefinitionUuid: reportUuid,
+      //   renderModeUuid: renderModeUuid,
+      //   reportParameters: reportParameters,
+      // };
+      //
+      // const abortController = new AbortController();
+      // runReportObservable(runReportRequest, abortController)
+      //   .pipe(first())
+      //   .subscribe(
+      //     () => {
+      //       // delayed handling because runReport returns before new reports is accessible via GET
+      //       setTimeout(() => {
+      //         showToast({
+      //           critical: true,
+      //           kind: 'success',
+      //           title: t('reportRunning', 'Report running'),
+      //           description: t('reportRanSuccessfullyMsg', 'Report ran successfully'),
+      //         });
+      //         closePanel();
+      //         setIsSubmitting(false);
+      //       }, 500);
+      //     },
+      //     (error) => {
+      //       console.error(error);
+      //       showToast({
+      //         critical: true,
+      //         kind: 'error',
+      //         title: t('reportRunningErrorMsg', 'Error while running the report'),
+      //         description: t('reportRunningErrorMsg', 'Error while running the report'),
+      //       });
+      //       setIsSubmitting(false);
+      //     },
+      //   );
     },
     [reportUuid, renderModeUuid, reportParameters],
   );
@@ -204,23 +203,23 @@ const RunReportForm: React.FC<RunReportForm> = ({ closePanel }) => {
         {currentReport &&
           currentReport.parameters?.map((parameter) => <div>{renderParameterElementBasedOnType(parameter)}</div>)}
       </div>
-      <div className={styles.outputFormatDiv}>
-        <Select
-          id="output-format-select"
-          className={styles.basicInputElement}
-          labelText={t('outputFormat', 'Output format')}
-          onChange={(e) => setRenderModeUuid(e.target.value)}
-          value={renderModeUuid}
-        >
-          <SelectItem value="" />
-          {reportDesigns?.length > 0 &&
-            reportDesigns.map((reportDesign) => (
-              <SelectItem key={reportDesign.uuid} text={reportDesign.name} value={reportDesign.uuid}>
-                {reportDesign.name}
-              </SelectItem>
-            ))}
-        </Select>
-      </div>
+      {/*<div className={styles.outputFormatDiv}>*/}
+      {/*  <Select*/}
+      {/*    id="output-format-select"*/}
+      {/*    className={styles.basicInputElement}*/}
+      {/*    labelText={t('outputFormat', 'Output format')}*/}
+      {/*    onChange={(e) => setRenderModeUuid(e.target.value)}*/}
+      {/*    value={renderModeUuid}*/}
+      {/*  >*/}
+      {/*    <SelectItem value="" />*/}
+      {/*    {reportDesigns?.length > 0 &&*/}
+      {/*      reportDesigns.map((reportDesign) => (*/}
+      {/*        <SelectItem key={reportDesign.uuid} text={reportDesign.name} value={reportDesign.uuid}>*/}
+      {/*          {reportDesign.name}*/}
+      {/*        </SelectItem>*/}
+      {/*      ))}*/}
+      {/*  </Select>*/}
+      {/*</div>*/}
       <div className={styles.buttonsDiv}>
         <ButtonSet className={isTablet ? styles.tablet : styles.desktop}>
           <Button onClick={closeOverlay} kind="secondary" size="xl" className={styles.reportButton}>
